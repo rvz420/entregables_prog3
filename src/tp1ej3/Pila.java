@@ -21,8 +21,10 @@ public class Pila {
 		elementos.agregarElemInicio(elem);
 	}
 	
-	public void desapilar(){
+	public int desapilar(){
+		int retorno = verTope();
 		elementos.eliminarElemento(elementos.getCantElem());
+		return retorno;
 	}
 	
 	public boolean esVacia(){

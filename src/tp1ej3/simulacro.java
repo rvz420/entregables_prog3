@@ -14,8 +14,8 @@ public class simulacro {
 		pila.apilar(2);
 		pila.apilar(3);
 		System.out.println("tope = "+pila.verTope());
-		pila.desapilar();
-		System.out.println("tope = "+pila.verTope());
+		System.out.println("desapilando = "+pila.desapilar()); 
+		
 	}
 
 }
