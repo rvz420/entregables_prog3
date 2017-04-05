@@ -2,7 +2,22 @@ package tp2ejs3y4;
 
 
 public class Main {
-
+	
+	/*
+	 * Luego de correr los resultados muestran que en arreglos
+	 * de pequeñas dimensiones el burbujeo es un poquito mas 
+	 * eficiente que el mergeSort.
+	 * 
+	 * En arreglos de mayor tamaño la diferencia se hace mas 
+	 * notoria y el mergeSort por una gran diferencia es 
+	 * muchisimo mas eficiente que el burbujeo
+	 * 
+	 * Complejidad de Burbujeo: O(n^2)
+	 * 
+	 * Complejidad de MergeSort O (log2 n)
+	 * 
+	 */
+	
 	public static void main(String[] args) {
 		
 		long startTime;
