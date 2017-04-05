@@ -15,7 +15,6 @@ public class Main {
 	 * Complejidad de Burbujeo: O(n^2)
 	 * 
 	 * Complejidad de MergeSort O (log2 n)
-	 * 
 	 */
 	
 	public static void main(String[] args) {
