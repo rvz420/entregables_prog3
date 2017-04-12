@@ -79,46 +79,60 @@ public class Grafo {
 	}
 	
 	public boolean dfs_visit(Nodo nodo, Hashtable<Integer, EstadoVisita> nodos){
-		System.out.print(nodo.getValor());
+		//System.out.print(nodo.getValor());
+		
+		if (nodos.get(nodo.getValor()) == EstadoVisita.VISITANDO){
+			return true;
+		}
+			
 		nodos.put(nodo.getValor(), EstadoVisita.VISITANDO);
 		
 		for (Adyacente adyacente : nodo.getAdyacentes()){
-			if (nodos.get(adyacente.getDestino().getValor()) == EstadoVisita.NO_VISITADO){
-				if( dfs_visit(adyacente.getDestino(), nodos)){
-					return true;
-				}
-			}else if(nodos.get(adyacente.getDestino().getValor()) == EstadoVisita.VISITANDO){
-				System.out.println("VISITANDO");
+			if( dfs_visit(adyacente.getDestino(), nodos)){
 				return true;
 			}
 		}
+		
 		nodos.put(nodo.getValor(), EstadoVisita.VISITADO);
 		return false;
 	}
 	
 	
-	public void esCiclicoIterable(){
+	public boolean esCiclicoIterable(){
 		Hashtable<Integer, EstadoVisita> nodosVisita = new Hashtable<Integer, EstadoVisita>();
 		Stack<Nodo> pila = new Stack<Nodo>();
 		for (Nodo vertice : vertices) {
 			nodosVisita.put(vertice.getValor(), EstadoVisita.NO_VISITADO);
-			pila.add(vertice);
 		}
+		pila.add(vertices.get(0));
 		
 		while (!pila.isEmpty()){
-			Nodo nodoAux = pila.pop();
+			Nodo nodoAux = pila.peek();
+			//System.out.println(nodoAux.getValor());
+			
 			if(nodosVisita.get(nodoAux.getValor()) == EstadoVisita.NO_VISITADO){
 				nodosVisita.put(nodoAux.getValor(), EstadoVisita.VISITANDO);
-				for (int i = 0; i < nodoAux.getAdyacentes().size(); i++) {
-					pila.add(nodoAux.getAdyacenteAt(i).getDestino());
+				if (vertices.size() > 0){
+					for (int i = 0; i < nodoAux.getAdyacentes().size(); i++) {
+						if( (nodosVisita.get(nodoAux.getAdyacenteAt(i).getDestino().getValor()) == (EstadoVisita.NO_VISITADO))){
+							pila.add(nodoAux.getAdyacenteAt(i).getDestino());
+						}else if ((nodosVisita.get(nodoAux.getAdyacenteAt(i).getDestino().getValor()) == (EstadoVisita.VISITANDO))){
+							return true;
+						}
+					}
+				}else{
+					nodosVisita.put(nodoAux.getValor(), EstadoVisita.VISITADO);
+					pila.pop();
 				}
-				nodosVisita.put(nodoAux.getValor(), EstadoVisita.VISITANDO);
-			}else if (nodosVisita.get(nodoAux.getValor()) == EstadoVisita.VISITANDO){
-				System.out.println(nodoAux.getValor());
-				System.out.println("CICLO");
+				
+			}else if(nodosVisita.get(nodoAux.getValor()) == EstadoVisita.VISITADO){
+				pila.pop();
+			}else{
+				nodosVisita.put(nodoAux.getValor(), EstadoVisita.VISITADO);
+				pila.pop();
 			}
 		}
-				
+		return false;
 	}
 	
 }
